@@ -15,7 +15,7 @@ public class MetricHelper {
         WavefrontReporter reporter = WavefrontReporter.forRegistry(registry)
                 .withSource("ebberod bank")
                 .withPointTag("dc", "ebberod")
-                .withPointTag("service", "query")
+                .withPointTag("service", "trading")
                 .withJvmMetrics()
                 .build("localhost", 2878);
         reporter.start(20, TimeUnit.SECONDS);

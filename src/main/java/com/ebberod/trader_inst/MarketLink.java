@@ -62,8 +62,8 @@ public class MarketLink {
     private String waitReply(String token) throws InterruptedException {
         Timer.Context ctx = t_waitReply.time();
         try {
-            Thread.sleep((long) Math.abs(r.nextGaussian()) * 10 +
-                    50 * ( 1 + (long) Math.sin(2 * Math.PI * System.currentTimeMillis() / 86400000)));
+            Thread.sleep((long) (Math.abs(r.nextGaussian()) * 10 +
+                    (50 * ( 1 + Math.sin(2 * Math.PI * System.currentTimeMillis() / 86400000)))));
             return r.nextInt(10) > 8 ? "FAILURE" : "OK";
         } finally {
             ctx.stop();

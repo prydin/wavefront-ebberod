@@ -1,5 +1,7 @@
 package com.ebberod.trader_inst;
 
+import com.codahale.metrics.Gauge;
+
 import java.util.Random;
 
 /**
@@ -7,11 +9,18 @@ import java.util.Random;
  * top secret un-weighted Monte Carlo-method which is, in essence just picking stocks at random.
  */
 public class Trader {
-    private Random r = new Random();
+    private long totalRevenue;
 
     public Trader(MarketLink market) {
         this.market = market;
+        MetricHelper.getRegistry().register("trader.totalRevenue", new Gauge<Long>() {
+            public Long getValue() {
+                return totalRevenue;
+            }
+        });
     }
+
+    private Random r = new Random();
 
     private MarketLink market;
 
@@ -23,7 +32,9 @@ public class Trader {
      * Place an order using our state-of-the art machine trading algorithm.
      */
     public String makeTrade() throws InterruptedException {
-        return market.placeOrder(pickStock(), pickTxType(), pickAmount());
+        int amount = this.pickAmount();
+        totalRevenue += amount;
+        return market.placeOrder(pickStock(), pickTxType(), amount);
     }
 
     private String pickStock() throws InterruptedException {
@@ -57,6 +68,12 @@ public class Trader {
     private void recalculateDecontribulators() throws InterruptedException {
         // Very complicated calculation going on here!!
         //
-        Thread.sleep(500 + (long) Math.abs(r.nextGaussian()) * 10);
+        long end = System.currentTimeMillis() + 500 + (long) Math.abs(r.nextGaussian()) * 10;
+        while(System.currentTimeMillis() < end) {
+            long x = 0;
+            for(int i = 0; i < 10000000; ++i) {
+                x += x % 8748574;
+            }
+        }
     }
 }

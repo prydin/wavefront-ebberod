@@ -57,6 +57,12 @@ public class Trader {
     private void recalculateDecontribulators() throws InterruptedException {
         // Very complicated calculation going on here!!
         //
-        Thread.sleep(500 + (long) Math.abs(r.nextGaussian()) * 10);
+        long end = System.currentTimeMillis() + 500 + (long) Math.abs(r.nextGaussian()) * 10;
+        while(System.currentTimeMillis() < end) {
+            long x = 0;
+            for(int i = 0; i < 10000000; ++i) {
+                x += x % 8748574;
+            }
+        }
     }
 }
