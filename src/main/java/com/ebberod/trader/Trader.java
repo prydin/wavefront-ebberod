@@ -23,6 +23,7 @@ public class Trader {
      * Place an order using our state-of-the art machine trading algorithm.
      */
     public String makeTrade() throws InterruptedException {
+        Thread.sleep(200); // Added delay...
         return market.placeOrder(pickStock(), pickTxType(), pickAmount());
     }
 
