@@ -29,7 +29,7 @@ public class MarketLink {
         Timer.Context ctx = t_trades.time();
         try {
             String token = sendRequest(symbol, txType, amount);
-            return waitReply(token);
+            return waitReply(token) + " " + symbol + " " + txType + " " + amount;
         } finally {
             ctx.stop();
         }
