@@ -18,7 +18,7 @@ public class MarketLink {
      */
     public String placeOrder(String symbol, TXType txType, int amount) throws InterruptedException {
         String token = sendRequest(symbol, txType, amount);
-        return waitReply(token);
+        return waitReply(token) + " " + symbol + " " + txType + " " + amount;
     }
 
     /**
