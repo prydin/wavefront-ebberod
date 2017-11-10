@@ -31,6 +31,12 @@ public class Trader {
         //
         Thread.sleep((long) Math.abs(r.nextGaussian()) * 10);
 
+        // Recalculate decontribulators if needed
+        //
+        if((System.currentTimeMillis() / 60000) % 15 == 0) {
+            recalculateDecontribulators();
+        }
+
         // Now it's time to make our important decision using the finest math!
         //
         return stockSymbols[r.nextInt(stockSymbols.length)];
@@ -46,5 +52,17 @@ public class Trader {
         // Buy or sell? Only the random number generator knows!
         //
         return r.nextInt(10) > 5 ? MarketLink.TXType.BUY: MarketLink.TXType.SELL;
+    }
+
+    private void recalculateDecontribulators() throws InterruptedException {
+        // Very complicated calculation going on here!!
+        //
+        long end = System.currentTimeMillis() + 500 + (long) Math.abs(r.nextGaussian()) * 10;
+        while(System.currentTimeMillis() < end) {
+            long x = 0;
+            for(int i = 0; i < 10000000; ++i) {
+                x += x % 8748574;
+            }
+        }
     }
 }
