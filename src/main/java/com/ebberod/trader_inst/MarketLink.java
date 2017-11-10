@@ -50,7 +50,7 @@ public class MarketLink {
             } else {
                 Thread.sleep((long) Math.abs(r.nextGaussian()) * 10);
             }
-            return symbol + "." + UUID.randomUUID().toString();
+            return UUID.randomUUID().toString();
         } finally {
             ctx.stop();
         }
@@ -64,8 +64,7 @@ public class MarketLink {
         try {
             Thread.sleep((long) (Math.abs(r.nextGaussian()) * 10 +
                     (50 * ( 1 + Math.sin(2 * Math.PI * System.currentTimeMillis() / 86400000)))));
-            int successProb = token.startsWith("NASDAQ") ? 75 : 95;
-            return r.nextInt(100) > successProb ? "FAILURE" : "OK";
+            return r.nextInt(10) > 8 ? "FAILURE" : "OK";
         } finally {
             ctx.stop();
         }
