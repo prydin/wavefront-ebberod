@@ -26,10 +26,10 @@ public class MarketLink {
      */
     private String sendRequest(String symbol, TXType txType, int amount) throws InterruptedException {
 
-        // Simulate a problem with NASDAQ being 20 times slower than NYSE
+        // Simulate a problem with NASDAQ being 2 times slower than NYSE
         //
         if(symbol.startsWith("NASDAQ:")) {
-            Thread.sleep((long) Math.abs(r.nextGaussian()) * 200);
+            Thread.sleep((long) Math.abs(r.nextGaussian()) * 20);
         } else {
             Thread.sleep((long) Math.abs(r.nextGaussian()) * 10);
         }
@@ -40,8 +40,6 @@ public class MarketLink {
      * Waits for completion and returns outcome
      */
     private String waitReply(String token) throws InterruptedException {
-        Thread.sleep((long) (Math.abs(r.nextGaussian()) * 10 +
-                (50 * ( 1 + Math.sin(2 * Math.PI * System.currentTimeMillis() / 86400000)))));
         int successProb = token.startsWith("NASDAQ") ? 75 : 95;
         return r.nextInt(100) > successProb ? "FAILURE" : "OK";    
     }
